@@ -49,6 +49,10 @@ def get_guessed_word(secret_word, letters_guessed):
         correct position.  For letters in the word that the user has not yet
         guessed, shown an _ (underscore) instead.
     '''
+    # TODO: Loop through the letters in secret word and build a string that
+    # shows the letters that have been guessed correctly so far that are saved
+    # in letters_guessed and underscores for the letters that have not been
+    # guessed yet
     build_word = ""
     for letter in secret_word:
         in_word = letter in letters_guessed
@@ -56,14 +60,8 @@ def get_guessed_word(secret_word, letters_guessed):
             build_word = build_word + letter
         else:
             build_word = build_word + "_"
-
     return build_word
 
-
-    # TODO: Loop through the letters in secret word and build a string that
-    # shows the letters that have been guessed correctly so far that are saved
-    # in letters_guessed and underscores for the letters that have not been
-    # guessed ye
     pass
 
 
@@ -77,7 +75,14 @@ def is_guess_in_word(guess, secret_word):
         bool: True if the guess is in the secret_word, False otherwise
     '''
     # TODO: check if the letter guess is in the secret word
+    guessed_letter = guess
+    letters_guessed = ""
+    for letter in secret_word:
+        is_in_word = guessed_letter == letter
+        if is_in_word is True:
+            letters_guessed = letters_guessed + guessed_letter
 
+    return letters_guessed
     pass
 
 
@@ -88,7 +93,6 @@ def spaceman(secret_word):
     Args:
       secret_word (string): the secret word to guess.
     '''
-
     # TODO: show the player information about the game according to the
     # project spec
 
@@ -101,6 +105,11 @@ def spaceman(secret_word):
     # TODO: show the guessed word so far
 
     # TODO: check if the game has been won or lost
+    word = ""
+    while get_guessed_word(secret_word, word) != secret_word:
+        print(get_guessed_word(secret_word, word))
+        word = word + is_guess_in_word(input("Please guess a letter: "), secret_word)
+        
 
 
 # These function calls that will start the game

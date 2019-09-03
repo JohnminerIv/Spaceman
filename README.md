@@ -13,10 +13,9 @@ Flow of project
             For each letter in the secret word check to see if the user has guessed it.
             If the user has guessed the letter then show the letter if not then show a space _ .
 
-        Prompt for user input
-
         Check if the letter guessed is in the secret word.
         is_guess_in_word
+            Prompt for user input
             Check if the letter guessed is in the secret word if it is add the letter to the list
             that get_guessed_word checks against. If the letter is not in the secret word add one
             point to the users incorrect guesses. If the amount of incorrect guesses is seven
