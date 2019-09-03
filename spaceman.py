@@ -49,12 +49,21 @@ def get_guessed_word(secret_word, letters_guessed):
         correct position.  For letters in the word that the user has not yet
         guessed, shown an _ (underscore) instead.
     '''
+    build_word = ""
+    for letter in secret_word:
+        in_word = letter in letters_guessed
+        if in_word is True:
+            build_word = build_word + letter
+        else:
+            build_word = build_word + "_"
+
+    return build_word
+
 
     # TODO: Loop through the letters in secret word and build a string that
     # shows the letters that have been guessed correctly so far that are saved
     # in letters_guessed and underscores for the letters that have not been
-    # guessed yet
-
+    # guessed ye
     pass
 
 
