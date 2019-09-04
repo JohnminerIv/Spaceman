@@ -31,6 +31,17 @@ def is_word_guessed(secret_word, letters_guessed):
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter
     # is not in lettersGuessed
+    build_word = ""
+    for letter in secret_word:
+        in_word = letter in letters_guessed
+        if in_word is True:
+            build_word = build_word + letter
+        else:
+            build_word = build_word + "_ "
+    if build_word == secret_word:
+        return True
+    else:
+        return False
     pass
 
 
@@ -59,7 +70,7 @@ def get_guessed_word(secret_word, letters_guessed):
         if in_word is True:
             build_word = build_word + letter
         else:
-            build_word = build_word + "_"
+            build_word = build_word + "_ "
     return build_word
 
     pass
@@ -76,11 +87,19 @@ def is_guess_in_word(guess, secret_word):
     '''
     # TODO: check if the letter guess is in the secret word
     guessed_letter = guess
+    if guessed_letter == "Q":
+        return guessed_letter
+    elif guessed_letter == "N":
+        return guessed_letter
+    guessed_letter = guessed_letter.lower()
     letters_guessed = ""
     for letter in secret_word:
         is_in_word = guessed_letter == letter
         if is_in_word is True:
-            letters_guessed = letters_guessed + guessed_letter
+            letters_guessed = letters_guessed + guessed_letter + "0"
+        else:
+            if "W" not in letters_guessed:
+                letters_guessed += "W"
 
     return letters_guessed
     pass
@@ -105,11 +124,46 @@ def spaceman(secret_word):
     # TODO: show the guessed word so far
 
     # TODO: check if the game has been won or lost
-    word = ""
-    while get_guessed_word(secret_word, word) != secret_word:
-        print(get_guessed_word(secret_word, word))
-        word = word + is_guess_in_word(input("Please guess a letter: "), secret_word)
-        
+    letters = ""
+    game_state = "playing"
+    wrong_answers = 0
+    while game_state == "playing":
+        print("\033[H\033[J")
+        # print(letters)
+        print(get_guessed_word(secret_word, letters))
+        letters = letters + is_guess_in_word(input(F"""You get 7 wrong answers,
+you have alreday answered wrong {wrong_answers} time(s)
+Type Q to quit or
+Type N to get a new word or
+Please guess a letter: """), secret_word)
+        if "Q" in letters:
+            letters = ""
+            game_state = "quit"
+        elif "N" in letters:
+            letters = ""
+            wrong_answers = 0
+            secret_word = load_word()
+        elif "W" in letters and "0" in letters:
+            letters2 = ""
+            for letter in letters:
+                if letter != "W" and letter != "0":
+                    letters2 += letter
+            letters = letters2
+        elif "W" in letters:
+            wrong_answers += 1
+            letters2 = ""
+            for letter in letters:
+                if letter != "W":
+                    letters2 += letter
+            letters = letters2
+            if wrong_answers == 7:
+                print("Oh no, you have killed the spaceman!")
+                game_state = "pause"
+        else:
+            return
+        if is_word_guessed(secret_word, letters) is True:
+            print("You have saved the spaceman!")
+            game_state = "pause"
 
 
 # These function calls that will start the game
