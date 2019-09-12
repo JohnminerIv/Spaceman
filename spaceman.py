@@ -127,9 +127,17 @@ def spaceman(secret_word):
     letters = ""
     game_state = "playing"
     wrong_answers = 0
+    last_guess_in_word = -1
     while game_state == "playing":
         print("\033[H\033[J")
         # print(letters)
+        if last_guess_in_word == len(letters):
+            print("That guess was not in the word.")
+        elif last_guess_in_word == -1:
+            last_guess_in_word = len(letters)
+        else:
+            last_guess_in_word = len(letters)
+            print("That letter was in the word.")
         print(get_guessed_word(secret_word, letters))
         letters = letters + is_guess_in_word(input(F"""You get 7 wrong answers,
 you have alreday answered wrong {wrong_answers} time(s)
@@ -168,4 +176,4 @@ Please guess a letter: """), secret_word)
 
 # These function calls that will start the game
 secret_word = load_word()
-spaceman(load_word())
+spaceman(secret_word)
