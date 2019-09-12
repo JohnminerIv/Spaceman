@@ -174,6 +174,7 @@ Please guess a letter: """), secret_word)
             game_state = "pause"
 
     while game_state == "pause":
+        print(f"The word was {secret_word}!")
         play_again = input('''Would you like to play again?
 If so type Y if not press enter: ''')
         if play_again == "Y" or play_again == "y":
