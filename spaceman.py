@@ -173,6 +173,16 @@ Please guess a letter: """), secret_word)
             print("You have saved the spaceman!")
             game_state = "pause"
 
+    while game_state == "pause":
+        play_again = input('''Would you like to play again?
+If so type Y if not press enter: ''')
+        if play_again == "Y" or play_again == "y":
+            game_state = "playing"
+
+            spaceman(load_word())
+        else:
+            game_state = "quit"
+
 
 # These function calls that will start the game
 secret_word = load_word()
