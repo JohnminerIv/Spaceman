@@ -42,7 +42,6 @@ def is_word_guessed(secret_word, letters_guessed):
         return True
     else:
         return False
-    pass
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -73,8 +72,6 @@ def get_guessed_word(secret_word, letters_guessed):
             build_word = build_word + "_ "
     return build_word
 
-    pass
-
 
 def is_guess_in_word(guess, secret_word):
     '''
@@ -94,15 +91,19 @@ def is_guess_in_word(guess, secret_word):
     guessed_letter = guessed_letter.lower()
     letters_guessed = ""
     for letter in secret_word:
-        is_in_word = guessed_letter == letter
-        if is_in_word is True:
-            letters_guessed = letters_guessed + guessed_letter + "0"
+        in_word = guessed_letter == letter
+        if in_word is True:
+            letters_guessed = letters_guessed + guessed_letter
+            letters2 = ""
+            for letter in letters_guessed:
+                if letter != "~":
+                    letters2 += letter
+            letters_guessed = letters2
+            return letters_guessed
         else:
-            if "W" not in letters_guessed:
-                letters_guessed += "W"
-
+            if "~" not in letters_guessed:
+                letters_guessed += "~"
     return letters_guessed
-    pass
 
 
 def spaceman(secret_word):
@@ -151,24 +152,18 @@ Please guess a letter: """), secret_word)
             letters = ""
             wrong_answers = 0
             secret_word = load_word()
-        elif "W" in letters and "0" in letters:
-            letters2 = ""
-            for letter in letters:
-                if letter != "W" and letter != "0":
-                    letters2 += letter
-            letters = letters2
-        elif "W" in letters:
+        elif "~" in letters:
             wrong_answers += 1
             letters2 = ""
             for letter in letters:
-                if letter != "W":
+                if letter != "~":
                     letters2 += letter
             letters = letters2
             if wrong_answers == 7:
                 print("Oh no, you have killed the spaceman!")
                 game_state = "pause"
         else:
-            return
+            pass
         if is_word_guessed(secret_word, letters) is True:
             print("You have saved the spaceman!")
             game_state = "pause"
@@ -187,4 +182,5 @@ If so type Y if not press enter: ''')
 
 # These function calls that will start the game
 secret_word = load_word()
-spaceman(secret_word)
+if __name__ == "__main__":
+    spaceman(secret_word)
