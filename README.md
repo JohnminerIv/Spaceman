@@ -1,5 +1,7 @@
 # Spaceman
-This is spaceman because we don't hang people here at Make School.
+## This repo is no longer being maintained
+This is Spaceman, a hangman-esque commandline game.
+
 
 Flow of project
 
