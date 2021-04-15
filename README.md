@@ -2,6 +2,10 @@
 ## This repo is no longer being maintained
 This is Spaceman, a hangman-esque commandline game.
 
+# Usage
+git clone <this repo> \
+python3 spaceman.py
+
 
 Flow of project
 
